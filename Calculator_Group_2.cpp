@@ -12,12 +12,14 @@ vector<int> PervoeChislo;
 vector<int> VtoroeChislo;
 vector<int> Resultat;
 
-void Zapolnenie();
+vector <int> Zapolnenie(vector <int>& a, vector <int>& b); 
 void Delenie();
+void Vstuplenie();
 void Summa();
 void Vichitanie();
 void PokazRezultata();
 void Umnozhenie();
+int ProverkaOperand();
 
 int Perevod(char Simvol);
 int ProverkaStroki();
@@ -26,32 +28,80 @@ int ProverkaNaBolshe();
 
 
 int DlyaDelenia;
+int Operator;
+int Dlinna_Chislo;
+
+void Vstuplenie() {
+	cout << "Приветствую>>>" << endl;
+	cout << "Вы можете посчитать:" << endl;
+	cout << "1. Сумма двух чисел (+) >>" << endl;
+	cout << "2. Разность двух чисел (-) >>" << endl;
+	cout << "3. Произведение двух чисел (*) >>" << endl;
+	cout << "4. Частное двух чисел (/) (But not really) >>" << endl;
+	cout << "5. Побитовое отрицание (|) (Still nope) >>" << endl;
+	cout << "0. Выйти (!) >>" << endl;
+	cout << "Пример ввода: 12121212*21212121" << endl;
+	cout << ">>" << endl;
+}
+
+int ProverkaOperand() {
+	Operator = 0;
+	for (int i = 0; i < Vvod.length(); i++) {
+		if (Vvod[i] == '+') return Operator = '+';
+		else if (Vvod[i] == '-') return Operator = '-';
+		else if (Vvod[i] == '*') return Operator = '*';
+		else if (Vvod[i] == '/') return Operator = '/';
+		else if (Vvod[i] == '%') return Operator = '%';
+		else if (Vvod[i] == '!') return Operator = '!';
+	}
+}
 
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	do {
-		cout << "Введите первое число, операнд и второе число (1+1)" << endl;
-		getline(cin, Vvod);
-		if (ProverkaStroki()) {
-			system("cls");
-			cout << "Выражение некорректно, введите верное" << endl;
-			system("pause");
-		}
-		system("cls");
-	} while (ProverkaStroki());
+		do {
+			Vstuplenie();
+			do {
+				cout << "Введите числа и действие, или ! для выхода." << endl;
+				cout << ">>>";
+				cin >> Vvod;
+				if (ProverkaStroki()) {
+					system("cls");
+					cout << "Ввод неверен, напишите как в примере" << endl;
+					cout << ">>>";
+					system("pause");
+				}
+				system("cls");
+			} while (ProverkaStroki());
+			ProverkaOperand();
+			switch (Operator) {
+			case '+':
+				Zapolnenie(PervoeChislo, VtoroeChislo);
+				Summa();
+				PokazRezultata();
+				break;
+			case '-':
+				Zapolnenie(PervoeChislo, VtoroeChislo);
+				Vichitanie();
+				PokazRezultata();
+				break;
+			case '*':
+				Zapolnenie(PervoeChislo, VtoroeChislo);
+				Umnozhenie();
+				PokazRezultata();
+				break;
+			case '/': break;
+			case '|':
 
-	Zapolnenie();
-	ProverkaNaBolshe();
-	Summa();
-	//Vichitanie();
-	//Delenie();
-	Umnozhenie();
-	PokazRezultata();
+				break;
+			}
+		} while (Operator != '!');
 
-	system("pause");
-	return 0;
+		system("pause");
+		return 0;
 }
+	
+
 
 int ProverkaNaBolshe() {
 	if (PervoeChislo.size() > VtoroeChislo.size())
@@ -69,32 +119,30 @@ int ProverkaNaBolshe() {
 
 int ProverkaStroki() {
 	int counter = 0;
-
+	Dlinna_Chislo = 0;
 	for (int i = 0; i < Vvod.length(); i++) {
-		if (Vvod[i] != '+' && Vvod[i] != '-' && Vvod[i] != '*' && Vvod[i] != '/' && Vvod[i] != '^' && Vvod[i] != ' ') {
-			if (Perevod(Vvod[i]) == 10)
-				counter++;
+		if (Vvod[i] == '0' || Vvod[i] == '1' || Vvod[i] == '2' || Vvod[i] == '3' || Vvod[i] == '4' || Vvod[i] == '5' || Vvod[i] == '6' || Vvod[i] == '7' || Vvod[i] == '8' || Vvod[i] == '9') {
+			if (counter == 0) Dlinna_Chislo++;
 		}
+		else counter++;
 	}
-	if (counter > 0)
+	if (counter > 1 || counter == 0)
 		return true;
-	else
-		return false;
+	if (counter == 1) {
+		if (Vvod[Dlinna_Chislo] == '+' || Vvod[Dlinna_Chislo] == '-' || Vvod[Dlinna_Chislo] == '*' || Vvod[Dlinna_Chislo] == '/' || Vvod[Dlinna_Chislo] == '|' || Vvod[Dlinna_Chislo] == '!')
+			return false;
+		else return true;
+	}
 }
 
-void Zapolnenie() {
-	int flag = 0;
-
-	for (int i = 0; i < Vvod.length(); i++) {
-		if (Vvod[i] != '+' && Vvod[i] != '-' && Vvod[i] != '*' && Vvod[i] != '/' && Vvod[i] != '^' && Vvod[i] != ' ') {
-			if (flag == 0)
-				PervoeChislo.push_back(Perevod(Vvod[i]));
-			else
-				VtoroeChislo.push_back(Perevod(Vvod[i]));
-		}
-		if (Vvod[i] == '+' || Vvod[i] == '-' || Vvod[i] == '*' || Vvod[i] == '/' || Vvod[i] == '^')
-			flag++;
+vector <int> Zapolnenie(vector <int>& PervoeChislo, vector <int>& VtoroeChislo) {
+	for (int i = 0; i < Dlinna_Chislo; i++) {
+		PervoeChislo.push_back(Perevod(Vvod[i]));
 	}
+	for (int i = Dlinna_Chislo + 1; i < Vvod.length(); i++) {
+		VtoroeChislo.push_back(Perevod(Vvod[i]));
+	}
+	return PervoeChislo, VtoroeChislo;
 }
 
 int Perevod(char Simvol) {
@@ -152,8 +200,19 @@ void Summa() {
 }
 
 void PokazRezultata() {
-	for (int i = 0; i < Resultat.size(); i++)
+	int counter = 0;
+	for (int i = 0; i < Resultat.size(); i++) {
+		if (Resultat[i] == 0) counter++; else break;
+	}
+	if (Resultat.size() >= 1 & counter > 0) Resultat.erase(Resultat.begin(), Resultat.begin() + counter - 1);
+	for (int i = 0; i < Resultat.size(); i++) {
 		cout << Resultat[i];
+	}
+	cout << "" << endl;
+	cout << ">>>" << endl;
+	PervoeChislo.clear();
+	VtoroeChislo.clear();
+	Resultat.clear();
 }
 
 
@@ -236,7 +295,6 @@ void Vichitanie() {
 
 void Delenie() {
 	
-
 }
 
 void Umnozhenie() {
