@@ -31,6 +31,8 @@ int DlyaDelenia;
 int Operator;
 int Dlinna_Chislo;
 
+//Сообщение для вывода, каждый раз, после удачного счёта
+
 void Vstuplenie() {
 	cout << "Приветствую>>>" << endl;
 	cout << "Вы можете посчитать:" << endl;
@@ -44,6 +46,8 @@ void Vstuplenie() {
 	cout << ">>" << endl;
 }
 
+//Функция сравнения знака, записанного в память с шаблонами для выбора нужного действия
+
 int ProverkaOperand() {
 	Operator = 0;
 	for (int i = 0; i < Vvod.length(); i++) {
@@ -55,6 +59,8 @@ int ProverkaOperand() {
 		else if (Vvod[i] == '!') return Operator = '!';
 	}
 }
+
+//Функция меню с выбором операции и возможностью выхода
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -101,7 +107,7 @@ int main() {
 		return 0;
 }
 	
-
+//Сравнение двух чисел для нахождения большего, нужна по большей части для вычитания
 
 int ProverkaNaBolshe() {
 	if (PervoeChislo.size() > VtoroeChislo.size())
@@ -116,6 +122,8 @@ int ProverkaNaBolshe() {
 			return 0;
 	}
 }
+
+//Функция проверки строки на наличие посторонних знаков, вызывается в меню
 
 int ProverkaStroki() {
 	int counter = 0;
@@ -135,6 +143,8 @@ int ProverkaStroki() {
 	}
 }
 
+//Функция перевода строки ввода(string) в вектор для последующих операций
+
 vector <int> Zapolnenie(vector <int>& PervoeChislo, vector <int>& VtoroeChislo) {
 	for (int i = 0; i < Dlinna_Chislo; i++) {
 		PervoeChislo.push_back(Perevod(Vvod[i]));
@@ -144,6 +154,8 @@ vector <int> Zapolnenie(vector <int>& PervoeChislo, vector <int>& VtoroeChislo) 
 	}
 	return PervoeChislo, VtoroeChislo;
 }
+
+//Функция перевода char в int
 
 int Perevod(char Simvol) {
 	if (Simvol == '0')
@@ -169,6 +181,8 @@ int Perevod(char Simvol) {
 	else
 		return 10;
 }
+
+//Функция сложения столбиком
 
 void Summa() {
 	int flag = 0;
@@ -199,6 +213,8 @@ void Summa() {
 	}
 }
 
+//Функция вывода вектора с последующим удалением его для возможности нового счёта без перезапуска
+
 void PokazRezultata() {
 	int counter = 0;
 	for (int i = 0; i < Resultat.size(); i++) {
@@ -215,6 +231,7 @@ void PokazRezultata() {
 	Resultat.clear();
 }
 
+//Функция вычитания столбиком
 
 void Vichitanie() {
 	int flag = 0;
@@ -293,9 +310,14 @@ void Vichitanie() {
 	}
 }
 
+//БЕЗДНА ВСЕГО МОЕГО ВРЕМЕНИ, КОТОРАЯ БОЛЬШУЮ ЧАСТЬ ВРЕМЕНИ НАХОДИТСЯ В ДРУГОМ ФАЙЛЕ И НЕ ХОЧЕТ РАБОТАТЬ
+//Кхм, продолжим
+
 void Delenie() {
 	
 }
+
+//Функция умножения, основана на хранении данных в двух векторах, которые сменяют друг-друга
 
 void Umnozhenie() {
 	int flag = 0;
