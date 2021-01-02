@@ -5,6 +5,17 @@
 #include<vector>
 #include<conio.h>
 #include<Windows.h>
+#include "Delenie.h"
+#include "Perevod.h"
+#include "PokazRezultata.h"
+#include "ProverkaNaBolshe.h"
+#include "ProverkaOperand.h"
+#include "ProverkaStroki.h"
+#include "Summa.h"
+#include "Umnozhenie.h"
+#include "Vichitanie.h"
+#include "Vstuplenie.h"
+#include "Zapolnenie.h"
 
 
 using namespace std;
